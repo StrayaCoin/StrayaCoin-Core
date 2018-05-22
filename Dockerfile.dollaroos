@@ -1,0 +1,14 @@
+FROM debian:9
+
+#install build dependencies
+RUN apt-get update && apt-get install -y curl build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb-dev libdb++-dev libzmq3-dev
+
+# build and configure client
+WORKDIR /app/client
+COPY . /app/client/
+RUN ./autogen.sh && ./configure --disable-wallet --without-gui --without-miniupnpc && make check
+
+# install miner
+WORKDIR /app/miner
+RUN curl -o pooler-cpuminer-2.3.2-linux-x86_64.tar.gz https://nchc.dl.sourceforge.net/project/cpuminer/pooler-cpuminer-2.3.2-linux-x86_64.tar.gz && tar -xzf pooler-cpuminer-2.3.2-linux-x86_64.tar.gz
+
