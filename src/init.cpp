@@ -525,7 +525,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/47crypto/straya-coin>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/StrayaCoin/StrayaCoin-Core>";
     const std::string URL_WEBSITE = "<https://www.strayacoin.org>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2011, COPYRIGHT_YEAR) + " ") + "\n" +
