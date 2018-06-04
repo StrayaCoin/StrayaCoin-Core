@@ -75,16 +75,16 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 248098;
-        consensus.BIP34Height = 710000;
-        consensus.BIP34Hash = uint256S("fa09d204a83a768ed5a7c8d441fa62f2043abf420cff1226c7b4329aeb9d51cf");
-        consensus.BIP65Height = 918684; // bab3041e8977e0dc3eeff63fe707b92bde1dd449d8efafb248c27c8264cc311a
-        consensus.BIP66Height = 811879; // 7aceee012833fa8952f8835d8b1b3ae233cd6ab08fdb27a771d2bd7bdc491894
+        consensus.BIP34Height = 0;
+        consensus.BIP34Hash = uint256S("f40e7646b3d251766a184024ebc024035edae584e0694dc875edc9757e267af5");
+        consensus.BIP65Height = 0; // bab3041e8977e0dc3eeff63fe707b92bde1dd449d8efafb248c27c8264cc311a
+        consensus.BIP66Height = 0; // 7aceee012833fa8952f8835d8b1b3ae233cd6ab08fdb27a771d2bd7bdc491894
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days
         consensus.nPowTargetSpacing = 2.5 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-	consensus.nPowDGWHeight = 63090;
+	consensus.nPowDGWHeight = 63190;
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
         consensus.nMinerConfirmationWindow = 8064; // nPowTargetTimespan / nPowTargetSpacing * 4
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -93,19 +93,19 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1485561600; // January 28, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517356801; // January 31st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1527554408; // May 29, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1559088000; // May 29, 2019
 
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1485561600; // January 28, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1527554408; // May 29, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1559088000; // May 29, 2019
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x29c8c00e1a5f446a6364a29633d3f1ee16428d87c8d3851a1c570be8170b04c2"); //1259849
+        consensus.defaultAssumeValid = uint256S("0x8f0c541625de95d06e73050a626325a8d36a3c92dbe12e7e8944a2864df02c56"); //63000
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -132,12 +132,12 @@ public:
         //vSeeds.emplace_back("dnsseed.strayacoinpool.org", true);
         //vSeeds.emplace_back("dnsseed.koin-project.com", false);
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,63);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0xff, 0x88, 0xB2, 0x1E};
-        base58Prefixes[EXT_SECRET_KEY] = {0xff, 0x88, 0xAD, 0xE4};
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); //'S'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5); // '3'
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,125);  //'s'
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,63); // 'S'
+        base58Prefixes[EXT_PUBLIC_KEY] = {0xff, 0x88, 0xB2, 0x1E}; // ??
+        base58Prefixes[EXT_SECRET_KEY] = {0xff, 0x88, 0xAD, 0xE4};  // ??
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
@@ -147,10 +147,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                {  0, uint256S("0xf40e7646b3d251766a184024ebc024035edae584e0694dc875edc9757e267af5")}/*,
-                {  650, uint256S("0x2b90731cbe9d628f5db73bf62ef124c26201d74706ca11278256fa3c32a92898")},
-
-
+                {  0, uint256S("0xf40e7646b3d251766a184024ebc024035edae584e0694dc875edc9757e267af5")},
+                {  63000, uint256S("0x8f0c541625de95d06e73050a626325a8d36a3c92dbe12e7e8944a2864df02c56")}/*,
                 {  1500, uint256S("0x841a2965955dd288cfa707a755d05a54e45f8bd476835ec9af4402a2b59a2967")},
                 {  4032, uint256S("0x9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
                 {  8064, uint256S("0xeb984353fc5190f210651f150c40b8a4bab9eeeff0b729fcb3987da694430d70")},
