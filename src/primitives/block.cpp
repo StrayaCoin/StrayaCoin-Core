@@ -10,16 +10,27 @@
 #include "utilstrencodings.h"
 #include "crypto/common.h"
 #include "crypto/scrypt.h"
+#include <chainparams.h>
+#include "arith_uint256.h"
 
 uint256 CBlockHeader::GetHash() const
 {
     return SerializeHash(*this);
 }
 
-uint256 CBlockHeader::GetPoWHash() const
+uint256 CBlockHeader::GetPoWHash(int nAlgo) const
 {
+    arith_uint256 thash1;
+    arith_uint256 thash2;
     uint256 thash;
-    scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+    switch(nAlgo){
+        case CChainParams::ALGO_SCRYPT :
+            scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+            break;
+        case CChainParams::ALGO_SCRYPT_NAH :
+            scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+            break;
+    }
     return thash;
 }
 
