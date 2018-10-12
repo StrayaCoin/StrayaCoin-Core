@@ -1,12 +1,12 @@
-Bitcoin Core version *0.15.0.1* is now available from:
+StrayaCoin Core version *1.2.1.0* is now available from:
 
-  <https://bitcoin.org/bin/bitcoin-core-0.15.0.1/>
+  <https://github.com/StrayaCoin/StrayaCoin-Core/releases>
 
-This is a minor bug fix for 0.15.0.
+This is a minor bug fix for 1.2.0.0
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/bitcoin/bitcoin/issues>
+  <https://github.com/StrayaCoin/StrayaCoin-Core/issues>
 
 To receive security and update notifications, please subscribe to:
 
@@ -16,33 +16,7 @@ How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
-shut down (which might take a few minutes for older versions), then run the 
-installer (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on Mac)
-or `bitcoind`/`bitcoin-qt` (on Linux).
-
-The first time you run version 0.15.0 or higher, your chainstate database will
-be converted to a new format, which will take anywhere from a few minutes to
-half an hour, depending on the speed of your machine.
-
-The file format of `fee_estimates.dat` changed in version 0.15.0. Hence, a
-downgrade from version 0.15.0 or upgrade to version 0.15.0 will cause all fee
-estimates to be discarded.
-
-Note that the block database format also changed in version 0.8.0 and there is no
-automatic upgrade code from before version 0.8 to version 0.15.0. Upgrading
-directly from 0.7.x and earlier without redownloading the blockchain is not supported.
-However, as usual, old wallet versions are still supported.
-
-Downgrading warning
--------------------
-
-The chainstate database for this release is not compatible with previous
-releases, so if you run 0.15 and then decide to switch back to any
-older version, you will need to run the old release with the `-reindex-chainstate`
-option to rebuild the chainstate data structures in the old format.
-
-If your node has pruning enabled, this will entail re-downloading and
-processing the entire blockchain.
+shut down (which might take a few minutes for older versions), then expand the zip file to the same location where Strayacoin was previously extracted to. 
 
 Compatibility
 ==============
@@ -53,20 +27,21 @@ the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not su
 Bitcoin Core should also work on most other Unix-like systems but is not
 frequently tested on them.
 
-Notable changes
-===============
+Notable changes in 1.2.1.0
+==========================
 
-GUI startup crash issue
--------------------------
+Denial-of-Service vulnerability
+-------------------------------
+A denial-of-service vulnerability exploitable by miners has been discovered in Bitcoin and 
+Litecoin Core versions 0.14.0 up to 0.16.2. Since StrayaCoin Core is based on this heritage, it is recommended to upgrade to version 1.2.1.0 as soon as possible.
+### Consensus
+- #14249 `696b936` Fix crash bug with duplicate inputs within a transaction (TheBlueMatt, sdaftuar)
 
-After upgrade to 0.15.0, some clients would crash at startup because a custom
-fee setting was configured that no longer exists in the GUI. This is a minimal
-patch to avoid this issue from occuring.
-
-0.15.0.1 Change log
+1.2.0.0 Change log
 ====================
 
--  #11332 `46c8d23` Fix possible crash with invalid nCustomFeeRadio in QSettings (achow101, TheBlueMatt)
+- Implement Dark Gravity Wave Difficult Adjustment
+- Fix Max Coin Supply
 
 Also the manpages were updated, as this was forgotten for 0.15.0.
 
@@ -75,9 +50,6 @@ Credits
 
 Thanks to everyone who directly contributed to this release:
 
-- Andrew Chow
-- Matt Corallo
-- Jonas Schnelli
-- Wladimir J. van der Laan
+- DaveTheKeyMaker
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
+
