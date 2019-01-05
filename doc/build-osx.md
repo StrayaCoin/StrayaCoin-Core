@@ -27,10 +27,10 @@ NOTE: Building with Qt4 is still supported, however, could result in a broken UI
 Build Strayacoin Core
 ------------------------
 
-1. Clone the strayacoin source code and cd into `strayacoin`
+1. Clone the strayacoin source code and cd into `StrayaCoin-Core`
 
-        git clone https://github.com/47crypto/straya-coin
-        cd strayacoin
+        git clone https://github.com/StrayaCoin/StrayaCoin-Core
+        cd StrayaCoin-Core
 
 2.  Build strayacoin-core:
 
