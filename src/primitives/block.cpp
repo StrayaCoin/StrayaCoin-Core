@@ -29,6 +29,9 @@ uint256 CBlockHeader::GetPoWHash(int nAlgo) const
             break;
         case CChainParams::ALGO_SCRYPT_NAH :
             scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+	        thash1 = UintToArith256(thash);  //Deploying inverse function
+	        thash2 = ~thash1;
+	        thash = ArithToUint256(thash2);
             break;
     }
     return thash;
