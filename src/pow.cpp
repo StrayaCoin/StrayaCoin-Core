@@ -85,7 +85,10 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
                 return pindex->nBits;
             }
         }
-	return pindexLast->nBits;
+	if (pindexLast->nHeight == 62533)
+	  return 0x1e0ffff0;
+	else
+      return pindexLast->nBits;
     }
 
     // Go back by what we want to be 14 days worth of blocks
