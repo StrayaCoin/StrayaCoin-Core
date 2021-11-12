@@ -126,7 +126,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xdd9921f0ad3a86be19920cfd70c63520dcd994831cb5df30983b5b9de60f575c"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("dnsseed.strayacoin.org", true);
+        vSeeds.emplace_back("seed.strayacoin.icu", true);
+        vSeeds.emplace_back("seed.straya.network", true);
+        vSeeds.emplace_back("seed.strayacoin.com", true);
         //vSeeds.emplace_back("seed-a.strayacoin.loshan.co.uk", true);
         //vSeeds.emplace_back("dnsseed.thrasher.io", true);
         //vSeeds.emplace_back("dnsseed.strayacointools.com", true);
