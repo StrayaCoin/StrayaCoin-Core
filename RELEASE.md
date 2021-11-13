@@ -1,7 +1,7 @@
 Strayacoin Core releases
 =====================================
 - 13 Nov 2021 Strayacoin V2.0.0 - Tests conducted on Testnet and Private Mainnet fork
-    - The changes below will go live at block height 808400
+    - The changes below will go live at block height 808600 - Approximately November 26th at 1PM
     - Changed mining algorithm to no longer be compatible with ASIC miners (CPU Mineable at changeover block, looking into GPU mining at a later stage)
     - Updated to new Strayacoin logo
     - Updated protocol version from 70015 -> 96291 to be unique to the Strayacoin unique, assistance us to separate from other chains i.e. Faithcoin nodes
