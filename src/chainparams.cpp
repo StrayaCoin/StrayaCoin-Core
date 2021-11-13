@@ -84,7 +84,7 @@ public:
         consensus.nPowTargetSpacing = 2.5 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-	    consensus.nPowDGWHeight = 63260;
+	      consensus.nPowDGWHeight = 63260;
         consensus.nPowScryptNAHHeight = 808600; // Approximately November 26th 1PM go live of Strayacoin v2.0.0 with Mining Algo Changes
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
         consensus.nMinerConfirmationWindow = 8064; // nPowTargetTimespan / nPowTargetSpacing * 4
