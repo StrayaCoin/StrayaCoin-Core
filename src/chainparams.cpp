@@ -85,6 +85,7 @@ public:
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
 	consensus.nPowDGWHeight = 63260;
+        consensus.nPowScryptNAHHeight = 800000;
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
         consensus.nMinerConfirmationWindow = 8064; // nPowTargetTimespan / nPowTargetSpacing * 4
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -125,7 +126,9 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xdd9921f0ad3a86be19920cfd70c63520dcd994831cb5df30983b5b9de60f575c"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("dnsseed.strayacoin.org", true);
+        vSeeds.emplace_back("seed.strayacoin.icu", true);
+        vSeeds.emplace_back("seed.straya.network", true);
+        vSeeds.emplace_back("seed.strayacoin.com", true);
         //vSeeds.emplace_back("seed-a.strayacoin.loshan.co.uk", true);
         //vSeeds.emplace_back("dnsseed.thrasher.io", true);
         //vSeeds.emplace_back("dnsseed.strayacointools.com", true);
@@ -147,8 +150,9 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                {  0, uint256S("0xf40e7646b3d251766a184024ebc024035edae584e0694dc875edc9757e267af5")},
-                {  63000, uint256S("0x8f0c541625de95d06e73050a626325a8d36a3c92dbe12e7e8944a2864df02c56")}/*,
+                {       0, uint256S("0xf40e7646b3d251766a184024ebc024035edae584e0694dc875edc9757e267af5")},
+                {   63000, uint256S("0x8f0c541625de95d06e73050a626325a8d36a3c92dbe12e7e8944a2864df02c56")}
+                {  800000, uint256S("0xb777ec0c6f83dc6cc98c94d8e602a66c8214e4d52635971bf02d668fc51e5847")}/*,
                 {  1500, uint256S("0x841a2965955dd288cfa707a755d05a54e45f8bd476835ec9af4402a2b59a2967")},
                 {  4032, uint256S("0x9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
                 {  8064, uint256S("0xeb984353fc5190f210651f150c40b8a4bab9eeeff0b729fcb3987da694430d70")},
@@ -186,16 +190,17 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 840000;
-        consensus.BIP34Height = 76;
+        consensus.nSubsidyHalvingInterval = 248098;
+        consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S("8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573");
-        consensus.BIP65Height = 76; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
-        consensus.BIP66Height = 76; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
+        consensus.BIP65Height = 0; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
+        consensus.BIP66Height = 0; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days
+        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days 
         consensus.nPowTargetSpacing = 2.5 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
+        consensus.nPowDGWHeight = 10;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
