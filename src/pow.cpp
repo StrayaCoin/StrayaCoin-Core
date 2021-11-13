@@ -109,10 +109,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 {
     // Most recent algo first
     if (pindexLast->nHeight + 1 >= params.nPowDGWHeight) {
-	if (pindexLast->nHeight +1 >= params.nPowScryptNAHHeight && pindexLast->nHeight +1 <= params.nPowScryptNAHHeight+25)
-	  return 0x1e0ffff0;
-	else 
-	  return DarkGravityWave(pindexLast, params);
+  	if (pindexLast->nHeight +1 >= params.nPowScryptNAHHeight && pindexLast->nHeight <= params.nPowScryptNAHHeight+25)
+	   return 0x1e0ffff0;
+	  else 
+	   return DarkGravityWave(pindexLast, params);
     }
     else {
         return GetNextWorkRequiredBTC(pindexLast, pblock, params);
