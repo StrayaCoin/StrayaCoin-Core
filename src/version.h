@@ -1,7 +1,6 @@
 // Copyright (c) 2012-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-// Chris Firgaira - Promoting protocol_version to 96291
 #ifndef BITCOIN_VERSION_H
 #define BITCOIN_VERSION_H
 
@@ -9,7 +8,7 @@
  * network protocol versioning
  */
 
-static const int PROTOCOL_VERSION = 96291; 
+static const int PROTOCOL_VERSION = 70015; 
 
 //! initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
