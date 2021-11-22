@@ -87,12 +87,13 @@ public:
     int GetPoWAlgo(int nHeight) const {
         if (strNetworkID == CBaseChainParams::TESTNET && nHeight > 10){
             return ALGO_SCRYPT_NAH;
-        } else if(strNetworkID == CBaseChainParams::MAIN && nHeight > 800000){ //Deploy new Strayacoin Algo to remove ASIC's
+        } else if(strNetworkID == CBaseChainParams::MAIN && nHeight >= 808600){ //Deploy new Strayacoin Algo to remove ASIC's
             return ALGO_SCRYPT_NAH;
         } else {
             return ALGO_SCRYPT;
         }
     }
+    
 protected:
     CChainParams() {}
 

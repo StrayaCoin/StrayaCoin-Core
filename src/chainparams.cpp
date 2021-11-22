@@ -84,7 +84,7 @@ public:
         consensus.nPowTargetSpacing = 2.5 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-	      consensus.nPowDGWHeight = 63260;
+	    consensus.nPowDGWHeight = 63260;
         consensus.nPowScryptNAHHeight = 808600; // Approximately November 26th 1PM go live of Strayacoin v2.0.0 with Mining Algo Changes
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
         consensus.nMinerConfirmationWindow = 8064; // nPowTargetTimespan / nPowTargetSpacing * 4
@@ -221,9 +221,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.strayacointools.com", true);
-        vSeeds.emplace_back("seed-b.strayacoin.loshan.co.uk", true);
-        vSeeds.emplace_back("dnsseed-testnet.thrasher.io", true);
+        vSeeds.emplace_back("testnet.strayacoin.icu", true);
+        vSeeds.emplace_back("testnet.straya.network", true);
+        vSeeds.emplace_back("testnet.strayacoin.com", true);
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
