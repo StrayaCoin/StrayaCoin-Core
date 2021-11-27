@@ -27,14 +27,14 @@ fi
 
 ### This will currently only work on Desktop ubuntu based distros. 
 # Let's check for the presence of apt-get.
-if ! which apt-get $> /dev/null; then 
+if [[ -z $(which apt-get) ]]; then 
   echo "This script is (currently) only designed to run on Ubuntu based machines."
   echo "Cannot continue."
   exit 1
 fi
 
 # Then for the desktop itself:
-dpkg -l ubuntu-desktop
+dpkg -l ubuntu-desktop > /dev/null
 exit_status=$?
 if [[ $exit_status -gt 0 ]]; then
   echo "This script is (currently) only designed to run on Desktop machines."
@@ -56,7 +56,7 @@ echo
 unset user_input
 while [[ ! ${user_input} =~ (^[yY]$|^[yY][eE][sS]$|^[nN]$|^[nN][oO]$) ]]; do
   read -r -p "Do you wish to continue? [Y/n] "
-  user_input=${user_input:="n"}
+  user_input=${user_input:="y"}
   if [[ ! ${user_input} =~ (^[yY]$|^[yY][eE][sS]$|^[nN]$|^[nN][oO]$) ]]; then
     echo -n "Invalid Input."
     unset user_input
@@ -94,7 +94,15 @@ if [[ $(echo $DISTRIB_RELEASE | cut -d'.' -f1) -lt 18 ]]; then
   sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
 else
   git -C $HOME clone https://github.com/bitcoin/bitcoin.git
-  ./${HOME}/bitcoin/contrib/install_db4.sh "$HOME/bitcoin"
+  ${HOME}/bitcoin/contrib/install_db4.sh "$HOME/bitcoin"
+fi
+
+./autogen.sh
+exit_status=$?
+if [[ $exit_status -gt 0 ]]; then
+  echo
+  echo "There was an error relating to the generation of configuration.  Please look at the output above, fix any issues, and try again."
+  exit 1
 fi
 
 ## configure the packages.

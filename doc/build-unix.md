@@ -17,7 +17,7 @@ To run this, open a terminal, and run the following commands:
 sudo apt-get install git
 git -C $HOME clone https://github.com/StrayaCoin/StrayaCoin-Core.git
 cd $HOME/StrayaCoin-Core
-./build-unix.sh
+./build-ubuntu.sh
 ```
 
 Note
