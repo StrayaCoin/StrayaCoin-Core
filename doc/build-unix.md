@@ -4,6 +4,22 @@ Some notes on how to build Strayacoin Core in Unix.
 
 (for OpenBSD specific instructions, see [build-openbsd.md](build-openbsd.md))
 
+
+Ubuntu Guided install
+---------------------
+
+There is now an ubuntu guided install, that will set install dependencies and the packages - including the miner - for you.  This is only compatible with Vanilla (Gnome) Ubuntu at this stage, but greatly simplifies the process.
+
+The below assumes that you have not yet cloned the repository.
+To run this, open a terminal, and run the following commands:
+
+```bash
+sudo apt-get install git
+git clone -C $HOME https://github.com/StrayaCoin/StrayaCoin-Core.git
+cd $HOME/StrayaCoin-Core
+./build-unix.sh
+```
+
 Note
 ---------------------
 Always use absolute paths to configure and compile strayacoin and the dependencies,
@@ -81,13 +97,15 @@ install necessary parts of boost:
 
 BerkeleyDB is required for the wallet.
 
-**For Ubuntu only:** db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
+**For Ubuntu 18.10 and below only:** db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
 You can add the repository and install using the following commands:
 
     sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:bitcoin/bitcoin
     sudo apt-get update
     sudo apt-get install libdb4.8-dev libdb4.8++-dev
+
+**For Ubuntu 19.04 and above:** You will need to clone the bitcoin-core repository, then compile the db4.8 package manually, as the launchpad repositories are now out of date.  Instructions for that can be found [here](https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md#berkeley-db)
 
 Ubuntu and Debian have their own libdb-dev and libdb++-dev packages, but these will install
 BerkeleyDB 5.1 or later, which break binary wallet compatibility with the distributed executables which

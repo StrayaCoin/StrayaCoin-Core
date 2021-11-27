@@ -1,0 +1,11 @@
+#!/bin/bash
+# This does nothing other than run four instances of mine-single in the background
+# It does assume that mine-single is in the path.
+
+nohup mine-single
+nohup mine-single
+nohup mine-single
+nohup mine-single
+
+echo "four instances of mine-single are now running."
+echo "To kill them, you can use pkill mine-single, or you can use ps at your leisure."
