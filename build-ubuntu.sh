@@ -136,6 +136,7 @@ if [[ $exit_status -gt 0 ]]; then
 fi
 
 sudo cp ${DIR}/bin/unix/* /usr/local/bin
+sudo chmod +x /usr/local/bin/mine-*
 
 echo
 echo "####################################################################"
@@ -145,7 +146,7 @@ echo
 echo "There are a couple of important steps to complete the installation, though, that this script cannot do."
 echo
 echo "run strayacoin-qt, accept the defaults, then close it"
-echo "run cp ${DIR}/strayacoin.conf ~/.strayacoin/"
+echo "run cp $DIR/strayacoin.conf ~/.strayacoin/"
 echo "restart strayacoin-qt and the wallet should eventually sync"
 echo
 echo "If you wish to mine: after syncing, run mine-single or mine-multithreaded while the strayacoin-qt wallet is open to begin mining."
