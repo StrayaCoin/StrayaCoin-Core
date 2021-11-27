@@ -93,7 +93,7 @@ if [[ $(echo $DISTRIB_RELEASE | cut -d'.' -f1) -lt 18 ]]; then
   sudo apt-get update
   sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
 else
-  git clone -C $HOME https://github.com/bitcoin/bitcoin.git
+  git -C $HOME clone https://github.com/bitcoin/bitcoin.git
   ./${HOME}/bitcoin/contrib/install_db4.sh "$HOME/bitcoin"
 fi
 
