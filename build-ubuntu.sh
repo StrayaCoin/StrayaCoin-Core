@@ -88,7 +88,7 @@ fi
 # Read in the Ubuntu Version number:
 . /etc/lsb-release
 
-if [[ $(echo $DISTRIB_RELEASE | cut -d'.' -f1) -lt 18 ]]; then
+if [[ $(echo $DISTRIB_RELEASE | cut -d'.' -f1) -le 18 ]]; then
   sudo add-apt-repository -y ppa:bitcoin/bitcoin
   sudo apt-get update
   sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
