@@ -79,7 +79,7 @@ fi
 # Let's install some dependencies we know we need.
 echo "Installing the dependencies."
 sleep 2
-sudo apt-get update && sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils software-properties-common libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev libzmq3-dev
+sudo apt-get update && sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils software-properties-common libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev libzmq3-dev libboost-all-dev
 exit_status=$?
 
 if [[ $exit_status -gt 0 ]]; then
