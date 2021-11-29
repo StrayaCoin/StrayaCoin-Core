@@ -1,2 +1,83 @@
 #!/bin/bash
-for i in {1..999}; do echo " $i "; strayacoin-cli generate "$i"; done
+pid=$$
+logfile=/var/log/strayacoin-mining.log
+version_number="1.0.0"
+
+print-help(){
+  echo
+  echo "Strayacoin Single-Thread Miner Script Version $version_number"
+  echo
+  echo "Usage: mine-single [-q -n]"
+  echo
+  echo "Flags Available:"
+  echo "  -q (--quiet)       : Do not output anything to the terminal, not even a PID."
+  echo "                       This will still print errors to stdout."
+  echo "  -n (--no-logging)  : Do not log to the logfile $logfile"
+  echo "  -h (--help)        : Print this help and exit."
+  echo "  -v (--version)     : Print the version number and exit."
+  exit 0
+}
+
+# This will be called later in the script.
+mine-coin(){
+  output=$(strayacoin-cli generate 1)
+  # the below is hacky, but is the best way I could find to:
+  # a: output the correct array with the correct run (this is especially important when run multi.)
+  # b: remove the newline in the generate array.  Even ${variable//search/replace} would not work on it.
+  echo " $(date): [$pid] run $i $(echo $output | sed 's/\n//g')"
+}
+
+for i in "$@"; do
+  case $i in
+    -v|--version)
+      echo "version $version_number"
+      exit 0
+    ;;
+    -h|--help)
+      print-help
+      shift # past argument
+    ;;
+    -q|--quiet)
+      quiet_mode="y"
+      shift
+    ;;
+    -n|--no-logging)
+      no_logging="y"
+      shift
+    ;;
+    *)
+      # unknown option
+    ;;
+  esac
+done
+
+if [[ "$no_logging" != "y" ]]; then
+  echo "Mining Started at $(date) - PID: $pid" >> $logfile
+  # If the logfile does not exist, create it.
+  if [[ ! -f $logfile ]]; then
+    echo "Logfile does not exist.  Need to create one.  This will ask for your password."
+    sudo touch $logfile
+    sudo chmod 666 $logfile
+  fi
+fi
+
+if [[ "$quiet_mode" != "y" ]]; then
+  echo "Single thread mining started."
+  echo "PID: $pid"
+  echo "If run from the mine-multi script, killing the above PID will stop the mining after the current block."
+fi
+
+# Iteration ought to start at 0, as this will be incremented in the loop.
+i=0
+
+# Actually mine the coin.
+while [[ "$stop_miner" == "" ]]; do
+  i=$(( i + 1 ))
+  if [[ "$quiet_mode" == "y" ]] && [[ "$no_logging" != "y" ]]; then # We're quiet, but logging.
+    mine-coin >> $logfile
+  elif [[ "$quiet_mode" != "y" ]] && [[ "$no_logging" != "y" ]]; then # We're not quiet, and we're logging.
+    mine-coin | tee -a $logfile
+  else # We're not quiet, and we're not logging.
+    mine-coin
+  fi
+done
