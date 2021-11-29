@@ -48,7 +48,7 @@ fi
 ## Ensure the user knows what's about to happen.
 
 echo "#############################################"
-echo "##  Strayacoin Ubuntu Build script v$version     ##"
+echo "##  Strayacoin Ubuntu Build script v$version   ##"
 echo "#############################################"
 echo
 echo "This will compile and install the key-components of the Strayacoin Core, including a graphical wallet, and a mining script (should you choose to use that."
