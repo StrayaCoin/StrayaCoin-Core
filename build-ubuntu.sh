@@ -5,7 +5,10 @@
 #############################################
 
 ## Let's set some variables:
-version="1.0.0"
+version="1.0.1"
+# This goes across to the mining scripts, too.
+# If you change it here, be sure to change it in the mining scripts, too!
+logfile=/var/log/strayacoin-mining.log
 
 # Find the true path of the script.  This is important for the file lookups performed.
 # The explanation for this can be found here:  https://stackoverflow.com/a/246128/7831034
@@ -45,7 +48,7 @@ fi
 ## Ensure the user knows what's about to happen.
 
 echo "#############################################"
-echo "##      Strayacoin Ubuntu Build script     ##"
+echo "##  Strayacoin Ubuntu Build script v$version   ##"
 echo "#############################################"
 echo
 echo "This will compile and install the key-components of the Strayacoin Core, including a graphical wallet, and a mining script (should you choose to use that."
@@ -137,6 +140,8 @@ fi
 
 sudo cp ${DIR}/bin/unix/* /usr/local/bin
 sudo chmod +x /usr/local/bin/mine-*
+sudo touch $logfile
+sudo chmod 666 $logfile
 
 echo
 echo "####################################################################"
