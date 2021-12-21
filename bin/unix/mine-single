@@ -1,30 +1,27 @@
 #!/bin/bash
+# This is nothing more than a wrapper to run multiple mine-single instances.
+# It does assume that mine-single is in $PATH, so be sure that it is.
+
+#!/bin/bash
 pid=$$
 logfile=/var/log/strayacoin-mining.log
 version_number="1.0.0"
 
 print-help(){
   echo
-  echo "Strayacoin Single-Thread Miner Script Version $version_number"
+  echo "Strayacoin Multi-Thread Miner Script Version $version_number"
   echo
-  echo "Usage: mine-single [-q -n]"
+  echo "Usage: mine-multi [-i <instances> -q -n]"
   echo
   echo "Flags Available:"
-  echo "  -q (--quiet)       : Do not output anything to the terminal, not even a PID."
-  echo "                       This will still print errors to stdout."
+  echo "  -i (--instances)   : Number of instances to run.  More is not always better.  The Wallet default is 4."
+  echo "                       This script will default to 4 for that reason."
+  echo "  -q (--quiet)       : Do not output anything to the terminal."
+  echo "                       This will still print errors to stdout, as well as the individual pids."
   echo "  -n (--no-logging)  : Do not log to the logfile $logfile"
   echo "  -h (--help)        : Print this help and exit."
   echo "  -v (--version)     : Print the version number and exit."
   exit 0
-}
-
-# This will be called later in the script.
-mine-coin(){
-  output=$(strayacoin-cli generate 1)
-  # the below is hacky, but is the best way I could find to:
-  # a: output the correct array with the correct run (this is especially important when run multi.)
-  # b: remove the newline in the generate array.  Even ${variable//search/replace} would not work on it.
-  echo " $(date): [$pid] run $i $(echo $output | sed 's/\n//g')"
 }
 
 for i in "$@"; do
@@ -45,39 +42,50 @@ for i in "$@"; do
       no_logging="y"
       shift
     ;;
+    -i|--instances)
+      num_instances="$2"
+      if [[ ! $num_instances =~ ^-?[0-9]+$ ]]; then
+        echo "$num_instances is not an integer. Defaulting to 4."
+        num_instances=4
+      fi
+      shift
+      shift
+    ;;
     *)
       # unknown option
     ;;
   esac
 done
 
+# Default to four instances if not set.
+if [[ ! $num_instances -gt 0 ]]; then
+  num_instances=4
+fi
+
 if [[ "$no_logging" != "y" ]]; then
-  echo "Mining Started at $(date) - PID: $pid" >> $logfile
-  # If the logfile does not exist, create it.
-  if [[ ! -f $logfile ]]; then
-    echo "Logfile does not exist.  Need to create one.  This will ask for your password."
-    sudo touch $logfile
-    sudo chmod 666 $logfile
-  fi
+  echo >> $logfile
+  echo "Multi-thread mining Started at $(date)" >> $logfile
 fi
 
 if [[ "$quiet_mode" != "y" ]]; then
-  echo "Single thread mining started."
-  echo "PID: $pid"
-  echo "If run from the mine-multi script, killing the above PID will stop the mining after the current block."
+  echo
+  echo "Multi thread mining started."
+  echo "$num_instances instances of mine-single will run."
+  echo "To kill all of them, you can use \`pkill mine-single\`"
+  echo "Or any other choice of process manager you like."
 fi
 
-# Iteration ought to start at 0, as this will be incremented in the loop.
 i=0
 
-# Actually mine the coin.
-while [[ "$stop_miner" == "" ]]; do
-  i=$(( i + 1 ))
-  if [[ "$quiet_mode" == "y" ]] && [[ "$no_logging" != "y" ]]; then # We're quiet, but logging.
-    mine-coin >> $logfile
-  elif [[ "$quiet_mode" != "y" ]] && [[ "$no_logging" != "y" ]]; then # We're not quiet, and we're logging.
-    mine-coin | tee -a $logfile
-  else # We're not quiet, and we're not logging.
-    mine-coin
+while [[ $i -lt $num_instances ]]; do
+  if [[ $quiet_mode == "y" ]] && [[ $no_logging == "y" ]]; then
+    mine-single -n -q & echo
+  elif [[ $quiet_mode != "y" ]] && [[ $no_logging == "y" ]]; then
+    mine-single -n & echo
+  elif [[ $quiet_mode == "y" ]] && [[ $no_logging != "y" ]]; then
+    mine-single -q & echo
+  else
+    mine-single & echo
   fi
+  i=$(( i + 1 ))
 done
